@@ -24,16 +24,13 @@ int	main(void)
 	i = 0;
 	fd = open("prueba.txt", O_RDONLY);
 	line = get_next_line(fd);
-	printf("aqui: %s", line);
-	/*while (line)
+	while (line)
 	{
-		printf("xd");
 		printf("%s", line);
 		free(line);
 		line = get_next_line(fd);
 		i++;
-		printf("cositas");
-	}*/
+	}
 	free(line);
 	close(fd);
 	return (0);

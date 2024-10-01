@@ -42,6 +42,7 @@ char	*update_str(char *str)
 	free(str);
 	return (new_str);
 }
+
 char	*read_line(char *str)
 {
 	char	*line;
@@ -78,8 +79,7 @@ char	*read_file(int fd, char *str)
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 	{
-		if (str)
-			free(str);
+		free(str);
 		return (0);
 	}
 	bytes = 1;
@@ -93,6 +93,11 @@ char	*read_file(int fd, char *str)
 			return (0);
 		}
 		buffer[bytes] = '\0';
+		if (!str && bytes == 0)
+		{
+			free(buffer);
+			return (0);
+		}
 		str = ft_strjoin(str, buffer);
 		if (!str)
 		{

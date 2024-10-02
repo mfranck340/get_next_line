@@ -103,7 +103,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	str = read_file(fd, str);
-	if (!str)
+	if (!str || !str[0])
 		return (0);
 	line = read_line(str);
 	str = update_str(str);

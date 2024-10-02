@@ -78,32 +78,18 @@ char	*read_file(int fd, char *str)
 
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-	{
-		free(str);
 		return (0);
-	}
 	bytes = 1;
 	while (!ft_strchr(str, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
 		{
-			free(str);
 			free(buffer);
 			return (0);
 		}
 		buffer[bytes] = '\0';
-		if (!str && bytes == 0)
-		{
-			free(buffer);
-			return (0);
-		}
 		str = ft_strjoin(str, buffer);
-		if (!str)
-		{
-			free(buffer);
-			return (0);
-		}
 	}
 	free(buffer);
 	return (str);

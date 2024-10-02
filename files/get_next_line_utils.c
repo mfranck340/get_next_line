@@ -74,18 +74,22 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (src_len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*join;
 
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
+	if (!s1 || !s2)
+		return (0);
 	join = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!join)
-	{
-		free((char *)s1);
 		return (0); 
-	}
 	ft_strlcpy(join, s1, ft_strlen(s1) + 1);
 	ft_strlcat(join, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
-	free((char *)s1);
+	free(s1);
 	return (join);
 }

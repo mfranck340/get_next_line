@@ -19,8 +19,6 @@ char	*update_str(char *str)
 	int		i;
 	int		j;
 
-	if (!str)
-		return (0);
 	i = 0;
 	while (str[i] != '\n' && str[i])
 		i++;
@@ -48,8 +46,6 @@ char	*read_line(char *str)
 	char	*line;
 	int		i;
 
-	if (!str)
-		return (0);
 	i = 0;
 	while (str[i] != '\n' && str[i])
 		i++;
@@ -78,13 +74,17 @@ char	*read_file(int fd, char *str)
 
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
+	{
+		free(str);
 		return (0);
+	}
 	bytes = 1;
 	while (!ft_strchr(str, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
 		{
+			free(str);
 			free(buffer);
 			return (0);
 		}
@@ -106,6 +106,8 @@ char	*get_next_line(int fd)
 	if (!str || !str[0])
 		return (0);
 	line = read_line(str);
+	if (!line)
+		return (0);
 	str = update_str(str);
 	return (line);
 }
